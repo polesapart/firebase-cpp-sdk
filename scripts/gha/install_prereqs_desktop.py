@@ -57,7 +57,7 @@ def main():
       sys.exit(0)
     if opt in ('--openssl'):
       option_install_openssl = True
-  
+
   # Install protobuf on linux/mac if its not installed already
   if not utils.is_command_installed('protoc'):
     if utils.is_linux_os():
@@ -66,7 +66,7 @@ def main():
     elif utils.is_mac_os():
         # brew install protobuf
         utils.run_command(['brew', 'install', 'protobuf'])
-    
+
   # Install go on linux/mac if its not installed already
   if not utils.is_command_installed('go'):
     if utils.is_linux_os():
@@ -95,12 +95,12 @@ def main():
         # brew install ccache
         utils.run_command(['brew', 'install', 'ccache'])
 
-  # Install required python dependencies. 
+  # Install required python dependencies.
   # On Catalina, python2 in installed as default python.
   # Example command:
   # python3 -m pip install -r external/pip_requirements.txt --user
-  utils.run_command( 
-     ['python3' if utils.is_command_installed('python3') else 'python', '-m', 
+  utils.run_command(
+     ['python3' if utils.is_command_installed('python3') else 'python', '-m',
           'pip', 'install', '-r', 'external/pip_requirements.txt', '--user'] )
 
 

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# CMake file for the firebase_admob library
+# CMake file for the firebase_admob librarydd
 
 # Common source files used by all platforms
 set(common_SRCS

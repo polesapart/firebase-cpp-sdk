@@ -316,8 +316,15 @@ jobs:
           workflow: 'cpp-packaging.yml'
           run_id: ${{ github.event.inputs.test_packaged_sdk }}
 
-      - name: Build integration tests
-        shell: bash
+      - name: Build integration tests (Windows)
+        if: startsWith(matrix.os, 'windows')
+        shell: cmd
+        run: |
+          python scripts/gha/build_testapps.py --t ${{ needs.prepare_matrix.outputs.apis }} --p ${{ matrix.target_platform }} --output_directory "${{ github.workspace }}" --noadd_timestamp ${additional_flags[*]}
+
+      - name: Build integration tests 
+        if: ! startsWith(matrix.os, 'macos')
+        shell: 
         run: |
           declare -a additional_flags
           if [[ -n "${{ github.event.inputs.test_packaged_sdk }}" ]]; then

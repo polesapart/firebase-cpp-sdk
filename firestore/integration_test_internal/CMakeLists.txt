@@ -51,9 +51,7 @@ set(MSVC_RUNTIME_MODE MD)
 
 # Ensure min/max macros don't get declared on Windows
 # (so we can use std::min/max), before including the Firebase subdirectories.
-if(MSVC)
-  add_definitions(-DNOMINMAX)
-endif()
+add_definitions(-DNOMINMAX)
 
 project(firebase_testapp)
 

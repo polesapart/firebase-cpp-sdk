@@ -48,12 +48,13 @@ endif()
 # https://msdn.microsoft.com/en-us/library/2kzt1wy3.aspx
 set(MSVC_RUNTIME_MODE MD)
 
+project(firebase_testapp)
 
 # Ensure min/max macros don't get declared on Windows
 # (so we can use std::min/max), before including the Firebase subdirectories.
-add_definitions(-DNOMINMAX)
-
-project(firebase_testapp)
+if(MSVC)
+  add_definitions(-DNOMINMAX)
+endif()
 
 # Integration test source files.
 set(FIREBASE_APP_FRAMEWORK_SRCS

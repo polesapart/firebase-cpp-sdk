@@ -316,11 +316,41 @@ jobs:
           workflow: 'cpp-packaging.yml'
           run_id: ${{ github.event.inputs.test_packaged_sdk }}
 
-      - name: Build integration tests (Windows)
+      - name: Build integration tests (Windows, cmd)
         if: startsWith(matrix.os, 'windows')
         shell: cmd
         run: |
-          python scripts/gha/build_testapps.py --t ${{ needs.prepare_matrix.outputs.apis }} --p ${{ matrix.target_platform }} --output_directory "${{ github.workspace }}" --noadd_timestamp ${additional_flags[*]}
+          python scripts/gha/build_testapps.py --t ${{ needs.prepare_matrix.outputs.apis }} --p ${{ matrix.target_platform }} --output_directory "${{ github.workspace }}" --noadd_timestamp}
+
+      - name: Build integration tests (Windows, cmd, Ninja)
+        if: startsWith(matrix.os, 'windows')
+        shell: cmd
+        run: |
+          python scripts/gha/build_testapps.py --t ${{ needs.prepare_matrix.outputs.apis }} --p ${{ matrix.target_platform }} --output_directory "${{ github.workspace }}" --noadd_timestamp --cmake_flag="-G Ninja"}
+
+      - name: Build integration tests (Windows, pwsh)
+        if: startsWith(matrix.os, 'windows')
+        shell: pwsh
+        run: |
+          python scripts/gha/build_testapps.py --t ${{ needs.prepare_matrix.outputs.apis }} --p ${{ matrix.target_platform }} --output_directory "${{ github.workspace }}" --noadd_timestamp}
+
+      - name: Build integration tests (Windows, pwsh, Ninja)
+        if: startsWith(matrix.os, 'windows')
+        shell: pwsh
+        run: |
+          python scripts/gha/build_testapps.py --t ${{ needs.prepare_matrix.outputs.apis }} --p ${{ matrix.target_platform }} --output_directory "${{ github.workspace }}" --noadd_timestamp --cmake_flag="-G Ninja"}
+
+      - name: Build integration tests (Windows, powershell)
+        if: startsWith(matrix.os, 'windows')
+        shell: powershell
+        run: |
+          python scripts/gha/build_testapps.py --t ${{ needs.prepare_matrix.outputs.apis }} --p ${{ matrix.target_platform }} --output_directory "${{ github.workspace }}" --noadd_timestamp}
+
+      - name: Build integration tests (Windows, powershell, Ninja)
+        if: startsWith(matrix.os, 'windows')
+        shell: powershell
+        run: |
+          python scripts/gha/build_testapps.py --t ${{ needs.prepare_matrix.outputs.apis }} --p ${{ matrix.target_platform }} --output_directory "${{ github.workspace }}" --noadd_timestamp --cmake_flag="-G Ninja"}
 
       - name: Build integration tests 
         if: startsWith(matrix.os, 'macos')  || startsWith(matrix.os, 'ubuntu')

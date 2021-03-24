@@ -316,8 +316,11 @@ jobs:
           workflow: 'cpp-packaging.yml'
           run_id: ${{ github.event.inputs.test_packaged_sdk }}
 
-      - name: Build integration tests (Windows, pwsh)
+      - name: Add msbuild to PATH (windows) 2
+        if: startsWith(matrix.os, 'windows')
         uses: microsoft/setup-msbuild@v1.0.2
+
+      - name: Build integration tests (Windows, pwsh)
         if: startsWith(matrix.os, 'windows')
         shell: pwsh
         run: |

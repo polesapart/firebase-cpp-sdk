@@ -316,13 +316,8 @@ jobs:
           workflow: 'cpp-packaging.yml'
           run_id: ${{ github.event.inputs.test_packaged_sdk }}
 
-      - name: Build integration tests (Windows, cmd, Ninja)
-        if: startsWith(matrix.os, 'windows')
-        shell: cmd
-        run: |
-          python scripts/gha/build_testapps.py --t ${{ needs.prepare_matrix.outputs.apis }} --p ${{ matrix.target_platform }} --output_directory "${{ github.workspace }}" --noadd_timestamp --cmake_flag="-G Ninja"
-
       - name: Build integration tests (Windows, pwsh)
+        uses: microsoft/setup-msbuild@v1.0.2
         if: startsWith(matrix.os, 'windows')
         shell: pwsh
         run: |
